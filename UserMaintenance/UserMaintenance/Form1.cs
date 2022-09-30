@@ -14,9 +14,10 @@ namespace UserMaintenance
 {
     public partial class Form1 : Form
     {
-        BindingList<User> users = new BindingList<User>();
+        public BindingList<User> users = new BindingList<User>();
         public Form1()
         {
+            
             InitializeComponent();
             label1.Text = Resource1.FullName; 
             button1.Text = Resource1.Add;
@@ -52,6 +53,16 @@ namespace UserMaintenance
                 }
                 sw.Close();
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var oID = (listBox1.SelectedValue).ToString();
+            var od = from x in users
+                     where x.ID.ToString() == oID.ToString()
+                     select x;
+            users.Remove(od.FirstOrDefault());
+            
         }
     }
 }
