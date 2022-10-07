@@ -27,7 +27,7 @@ namespace _4_het
         }
         private void LoadData()
         {
-            List<Flat> Flats = context.Flats.ToList();
+            Flats = context.Flats.ToList();
         }
         private void CreateExcel()
         {
