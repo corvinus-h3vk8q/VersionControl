@@ -79,7 +79,7 @@ namespace _4_het
 
             for (int i = 0; i < headers.Length; i++)
             {
-                xlSheet.Cells[1,i+ 1] = headers[i];
+                xlSheet.Cells[1, i + 1] = headers[i];
             }
 
             object[,] values = new object[Flats.Count, headers.Length];
@@ -91,11 +91,18 @@ namespace _4_het
                 values[counter, 1] = f.Vendor;
                 values[counter, 2] = f.Side;
                 values[counter, 3] = f.District;
-                values[counter, 4] = f.Elevator;
+                   if (f.Elevator==true)
+                {
+                    values[counter, 4] = "Van";
+                }
+                else values[counter, 4] = "Nincs";
+
+
+               // values[counter, 4] = f.Elevator;
                 values[counter, 5] = f.NumberOfRooms;
                 values[counter, 6] = f.FloorArea;
                 values[counter, 7] = f.Price;
-                values[counter, 8] = "";
+                values[counter, 8] = (f.Price * 1000000 / f.FloorArea);
                 counter++;
             }
             xlSheet.get_Range(
@@ -114,7 +121,7 @@ namespace _4_het
                 headerRange.Interior.Color = Color.LightBlue;
                 headerRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
             }
-            
+
         }
         private string GetCell(int x, int y)
         {
