@@ -23,7 +23,7 @@ namespace _4_het
         {
             InitializeComponent();
             LoadData();
-            // CreateExcel();
+            CreateExcel();
         }
         private void LoadData()
         {
@@ -43,7 +43,7 @@ namespace _4_het
                 xlSheet = xlWB.ActiveSheet;
 
                 // Tábla létrehozása
-                // CreateTable();
+                CreateTable();
 
                 // Control átadása a felhasználónak
                 xlApp.Visible = true;
@@ -79,7 +79,7 @@ namespace _4_het
 
             for (int i = 0; i < headers.Length; i++)
             {
-                xlSheet.Cells[i + 1, 1] = headers[0];
+                xlSheet.Cells[1,i+ 1] = headers[i];
             }
 
             object[,] values = new object[Flats.Count, headers.Length];
@@ -88,14 +88,33 @@ namespace _4_het
             foreach (Flat f in Flats)
             {
                 values[counter, 0] = f.Code;
-                // ...
+                values[counter, 1] = f.Vendor;
+                values[counter, 2] = f.Side;
+                values[counter, 3] = f.District;
+                values[counter, 4] = f.Elevator;
+                values[counter, 5] = f.NumberOfRooms;
+                values[counter, 6] = f.FloorArea;
+                values[counter, 7] = f.Price;
                 values[counter, 8] = "";
                 counter++;
             }
             xlSheet.get_Range(
             GetCell(2, 1),
             GetCell(1 + values.GetLength(0), values.GetLength(1))).Value2 = values;
+            FormatTable();
 
+            void FormatTable()
+            {
+                Excel.Range headerRange = xlSheet.get_Range(GetCell(1, 1), GetCell(1, headers.Length));
+                headerRange.Font.Bold = true;
+                headerRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                headerRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                headerRange.EntireColumn.AutoFit();
+                headerRange.RowHeight = 40;
+                headerRange.Interior.Color = Color.LightBlue;
+                headerRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+            }
+            
         }
         private string GetCell(int x, int y)
         {
@@ -113,5 +132,6 @@ namespace _4_het
 
             return ExcelCoordinate;
         }
+
     }
 }
