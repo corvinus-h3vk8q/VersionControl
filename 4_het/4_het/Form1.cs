@@ -66,15 +66,15 @@ namespace _4_het
         {
             string[] headers = new string[]
             {
-     "Kód",
-     "Eladó",
-     "Oldal",
-     "Kerület",
-     "Lift",
-     "Szobák száma",
-     "Alapterület (m2)",
-     "Ár (mFt)",
-     "Négyzetméter ár (Ft/m2)"
+                 "Kód",
+                 "Eladó",
+                 "Oldal",
+                 "Kerület",
+                 "Lift",
+                 "Szobák száma",
+                 "Alapterület (m2)",
+                 "Ár (mFt)",
+                 "Négyzetméter ár (Ft/m2)"
             };
 
             for (int i = 0; i < headers.Length; i++)
@@ -91,18 +91,22 @@ namespace _4_het
                 values[counter, 1] = f.Vendor;
                 values[counter, 2] = f.Side;
                 values[counter, 3] = f.District;
-                   if (f.Elevator==true)
+                if (f.Elevator == true)
                 {
                     values[counter, 4] = "Van";
                 }
                 else values[counter, 4] = "Nincs";
 
 
-               // values[counter, 4] = f.Elevator;
+                // values[counter, 4] = f.Elevator;
                 values[counter, 5] = f.NumberOfRooms;
                 values[counter, 6] = f.FloorArea;
                 values[counter, 7] = f.Price;
-                values[counter, 8] = (f.Price * 1000000 / f.FloorArea);
+                values[counter, 8] = xlSheet.Cells[counter + 2, 9] = "=" + "H" + (counter + 2) + "/" + "G" + (counter + 2) + "*1000000";
+
+
+
+
                 counter++;
             }
             xlSheet.get_Range(
