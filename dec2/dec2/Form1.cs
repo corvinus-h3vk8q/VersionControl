@@ -23,9 +23,9 @@ namespace dec2
         public Form1()
         {
             InitializeComponent();
-            Population = GetPopulation(@"C:\Temp\nép.csv");
-            BirthProbabilities = GetBirthProbabilities(@"C:\Temp\születés.csv");
-            DeathProbabilities = GetDeathProbabilities(@"C:\Temp\halál.csv");
+            
+            BirthProbabilities = GetBirthProbabilities(@"C:\Windows\Temp\születés.csv");
+            DeathProbabilities = GetDeathProbabilities(@"C:\Windows\Temp\halál.csv");
             numericUpDown1.Maximum = 5000;
             numericUpDown1.Value=2024;
 
@@ -135,7 +135,7 @@ namespace dec2
         private void button2_Click(object sender, EventArgs e)
         {
             richTextBox1.Clear();
-            for (int year = 2005; year <= 2024; year++)
+            for (int year = 2005; year <= numericUpDown1.Value; year++)
             {
                 for (int i = 0; i < Population.Count; i++)
                 {
@@ -151,6 +151,19 @@ namespace dec2
                 Console.WriteLine(
                     string.Format("Év:{0} Fiúk:{1} Lányok:{2}", year, nbrOfMales, nbrOfFemales));
             }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog of=new OpenFileDialog();
+            if (of.ShowDialog() == DialogResult.OK)
+            {
+                of.InitialDirectory= @"C:\Windows\Temp";
+                
+            }
+            textBox1.Text=of.FileName;
+            Population = GetPopulation(textBox1.Text);
 
         }
     }
