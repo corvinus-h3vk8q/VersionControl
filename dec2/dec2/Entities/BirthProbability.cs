@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace dec2.Entities
 {
-    class BirthProbability
+   public class BirthProbability
     {
         public int Age { get; set; }
         public double NbrOfChildren { get; set; }
