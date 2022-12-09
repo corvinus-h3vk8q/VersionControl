@@ -27,6 +27,7 @@ namespace EvolutionGame1
             this.Controls.Add(ga);
             //gc.AddPlayer();
             // gc.Start(true);
+            gc.GameOver += Gc_GameOver;
 
             for (int i = 0; i < populationSize; i++)
             {
@@ -75,7 +76,11 @@ namespace EvolutionGame1
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            gc.ResetCurrentLevel();
+            gc.AddPlayer(winnerBrain.Clone());
+            gc.AddPlayer();
+            ga.Focus();
+            gc.Start(true);
         }
     }
 }
